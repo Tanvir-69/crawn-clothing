@@ -5,6 +5,7 @@ import { Routes, Route,Link } from 'react-router-dom';
 
 import HomePage from './Pages/Homepage/HomePage';
 import ShopPage from './Pages/Shoppage/shoppage';
+import Header from './Components/Header/Header';
 
 
 const HatsPage =()=>(
@@ -19,7 +20,7 @@ const App = () => {
   return (
     <div className="App">
       {/* <ShopPage /> */}
-      
+      <Header />
       <Routes>
       <Route path='/' element={<HomePage />} />
       <Route path='/shop' element={<ShopPage />} />

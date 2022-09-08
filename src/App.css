@@ -4,3 +4,8 @@ body{
   /* font-family: 'Antonio', sans-serif; */
 /* font-family: 'Bigelow Rules', cursive; */
 }
+
+a{
+  text-decoration: none;
+  color: black;
+}
