@@ -2,8 +2,12 @@ import React from 'react';
 
 import './MenuItem.scss'
 
-const MenuItem =({title,imageUrl,size})=>(
-    <div className={`${size} menu-item`}>
+import { Link } from 'react-router-dom';
+
+const MenuItem =({title,imageUrl,size,linkUrl})=>(
+   
+    <Link className={`${size} menu-item`} to={linkUrl}>  
+
        <div 
        className='background-image' 
        style={{backgroundImage:`url(${imageUrl})`}} 
@@ -12,7 +16,8 @@ const MenuItem =({title,imageUrl,size})=>(
           <h1 className='title'>{title.toUpperCase()}</h1>
           <span className='subtitle'>SHOP NOW</span>
        </div>
-    </div>
+  
+    </Link>
 )
 
 export default MenuItem; 
