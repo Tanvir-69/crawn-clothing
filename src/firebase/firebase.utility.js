@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 // import 'firebase/firestore';
 // import 'firebase/auth';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { getFirestore, collection,setDoc, addDoc, doc, getDoc } from "firebase/firestore";
 
 
 
@@ -16,13 +17,44 @@ const firebaseConfig = {
     measurementId: "G-GTLN4ESBL5"
   };
 
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
-export const auth = getAuth();
+export const auth = getAuth(app);
 auth.languageCode = 'it';
 // export const firestore = firebase.firestore();
 // console.log('auth',auth)
+
+const firestore = getFirestore(app);
+
+export const createUserProfileDoc = async (userAuth, additionalData) =>{
+  if(!userAuth) return;
+
+  const userRef  = doc(firestore, `users/${userAuth.uid}`)
+  const snapShot = await getDoc(userRef);
+
+  console.log('snapShot',userAuth)
+ 
+  if(!snapShot.exists()){
+    const { displayName, email} = userAuth
+    const createdDate = new Date()
+      try{
+         await setDoc(userRef, {
+            displayName,
+            email,
+            createdDate,
+            ...additionalData
+            
+        });
+        // console.log("Document written with ID: ", docRef)
+    } catch(e){
+        console.log('Error:', e.message)
+    }
+  }
+
+  return userRef;
+
+}
 
 
 const provider = new GoogleAuthProvider();

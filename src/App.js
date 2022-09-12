@@ -9,7 +9,8 @@ import Header from './Components/Header/Header';
 import ContactPage from './Pages/Contact-page/Contactpage';
 import SignInAndSignUpPage from './Pages/Sign-in-and-sign-up-page/Sign-in-and-sign-up';
 
-import { auth } from './firebase/firebase.utility'
+import { auth, createUserProfileDoc } from './firebase/firebase.utility'
+import { onAuthStateChanged } from "firebase/auth";
 
 
 const HatsPage =()=>(
@@ -18,23 +19,33 @@ const HatsPage =()=>(
 )
 
 const App = () => {
-  const [currentUser,setCurrentUser] = React.useState({})
+  const [userToken,setUserToken] = React.useState({})
+
   
   React.useEffect(()=>{
     
-    auth.onAuthStateChanged(user =>{
-      setCurrentUser(user)
-      console.log('aauth:',user)
+    onAuthStateChanged(auth, async userAuth =>{
+      console.log('authFromAppJs:',userAuth)
+      // const userToken = userAuth.accessToken
+      if(userAuth){
+        await createUserProfileDoc(userAuth)
+        setUserToken(userAuth.accessToken)
+      }else{
+        setUserToken(userAuth)
+      }
+        
+          
+      // console.log('aauth:',userAuth.accessToken)
     })
   })
 
-  console.log('aauth:',currentUser)
+
+      // console.log('test:',test.testTex)
+
 
   return (
-    <div className="App">
-      {/* <ShopPage /> */}
-      
-      <Header currentUser={currentUser}/>
+    <div className="App">     
+      <Header currentUser={userToken}/>
       <Routes>
       <Route path='/' element={<HomePage />} />
       <Route path='/shop' element={<ShopPage />} />

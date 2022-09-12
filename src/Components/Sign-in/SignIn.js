@@ -4,6 +4,7 @@ import './SignIn.scss';
 import FormInput from '../form-component/FormInput'
 import CustomButton from "../custom-button/CustomButton";
 import { signInWithGoogle } from "../../firebase/firebase.utility";
+// import { docRef } from '../../firebase/firestore.db';
 
 
 
@@ -53,6 +54,9 @@ const SignIn =()=>{
                     <CustomButton onClick={signInWithGoogle} isGoogleSignIn>                  
                         Sign In With Google
                         </CustomButton> 
+                        {/* <CustomButton onClick={docRef} isGoogleSignIn>                  
+                            test button
+                        </CustomButton>  */}
                 </div>           
 
 

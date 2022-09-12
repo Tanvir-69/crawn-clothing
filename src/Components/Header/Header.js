@@ -5,6 +5,7 @@ import './Header.scss'
 import {auth} from '../../firebase/firebase.utility'
 
 const Header =({currentUser})=>(
+    
     <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo' />
