@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 import {ReactComponent as Logo} from '../../asset/logo.svg'
 import './Header.scss'
 import {auth} from '../../firebase/firebase.utility'
+import {useSelector} from 'react-redux';
 
-const Header =({currentUser})=>(
-    
-    <div className='header'>
+
+const Header =()=>{
+    const currentUser = useSelector(state=>state.user.currentUser)
+    console.log('userFromheader',currentUser)
+
+
+
+    return(
+        <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo' />
         </Link>
@@ -24,6 +31,7 @@ const Header =({currentUser})=>(
 
         
     </div>
-)
+    )  
+}
 
 export default Header;

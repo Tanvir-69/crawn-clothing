@@ -3,7 +3,9 @@ import './SignIn.scss';
 
 import FormInput from '../form-component/FormInput'
 import CustomButton from "../custom-button/CustomButton";
-import { signInWithGoogle } from "../../firebase/firebase.utility";
+import { auth,signInWithGoogle } from "../../firebase/firebase.utility";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 // import { docRef } from '../../firebase/firestore.db';
 
 
@@ -21,10 +23,21 @@ const SignIn =()=>{
 
     )
 
-    const handelSubmit=(e)=>(
-        e.preventDefault()
+    const handelSubmit=async(e)=>{     
+            e.preventDefault();
+
+            try{
+                await signInWithEmailAndPassword(auth,email,password)
+                setEmail('')
+                setPassword('')
+
+            }catch(error){
+                console.log(error)
+            }
+            
+}
        
-    )
+    
 
     return(
         <div className="sign-in">
